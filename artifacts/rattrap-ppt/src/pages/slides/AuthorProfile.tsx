@@ -1,6 +1,6 @@
 export default function AuthorProfile() {
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#F5F0E8] flex font-body">
+    <div className="relative w-screen h-screen overflow-hidden bg-ivory flex font-body">
 
       {/* LEFT PREMIUM PANEL */}
       <div className="relative w-[40%] h-full overflow-hidden bg-[#0D2C5A] flex flex-col justify-center items-center px-10">

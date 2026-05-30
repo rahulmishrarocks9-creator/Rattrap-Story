@@ -1,6 +1,6 @@
 export default function Analogy() {
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-pearl font-body text-ink px-[6vw] py-[7vh] flex flex-col">
+    <div className="relative w-screen h-screen overflow-hidden bg-ivory font-body text-ink px-[6vw] py-[7vh] flex flex-col">
       <div className="flex items-end justify-between">
         <div>
           <p className="text-gold font-semibold tracking-[0.34em] text-[1.55vw] uppercase">

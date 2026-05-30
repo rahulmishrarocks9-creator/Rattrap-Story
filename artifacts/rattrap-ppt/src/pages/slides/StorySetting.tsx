@@ -2,7 +2,7 @@ const base = import.meta.env.BASE_URL;
 
 export default function StorySetting() {
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-pearl font-body text-ink flex">
+    <div className="relative w-screen h-screen overflow-hidden bg-ivory font-body text-ink flex">
       <div className="relative flex-1 h-full flex flex-col px-[6vw] py-[7vh]">
         <p className="text-teal font-semibold tracking-[0.34em] text-[1.55vw] uppercase">
           Background of the Story

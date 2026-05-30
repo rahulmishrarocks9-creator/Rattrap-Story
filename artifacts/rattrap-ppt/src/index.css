@@ -29,13 +29,13 @@
 :root {
   --slide-primary: #173e72;
   --slide-accent: #c49a45;
-  --slide-bg: #f4eddf;
+  --slide-bg: #e7edf8;
   --slide-text: #16202e;
   --slide-muted: #6e7787;
 
   --slide-ink: #16202e;
-  --slide-ivory: #f4eddf;
-  --slide-pearl: #fbf7ef;
+  --slide-ivory: #e7edf8;
+  --slide-pearl: #fafcff;
   --slide-gold: #c49a45;
   --slide-goldbright: #e6c570;
   --slide-navy: #0d2240;
