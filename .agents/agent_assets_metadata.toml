@@ -36,3 +36,33 @@ id = "tW3pzF2lo4loyUPLBmdhP"
 uri = "file://artifacts/rattrap-ppt/public/images/thankyou.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "Q33MyHYNFQh7G9Wf_M8LS"
+uri = "file://artifacts/rattrap-ppt/public/images/sym-rattrap.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "bS4JUFCsApxcYsSHo0AnP"
+uri = "file://artifacts/rattrap-ppt/public/images/sym-forest.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "BuaR1kysw6iXlqwUAvuDN"
+uri = "file://artifacts/rattrap-ppt/public/images/sym-forge.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "i5p6M-cU2RsMXlIO0xLln"
+uri = "file://artifacts/rattrap-ppt/public/images/sym-christmas.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "MRJ6cUgbOWkIiF_5L1J7t"
+uri = "file://artifacts/rattrap-ppt/public/images/characters-bg.png"
+type = "image"
+title = "generated_image"
