@@ -39,7 +39,12 @@ jobs:
           pnpm --version
 
       - name: Install all workspace dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Run approved build scripts
+        run: |
+          pnpm --filter @workspace/scripts exec node node_modules/puppeteer/install.mjs || true
+          pnpm rebuild esbuild || true
 
       - name: Install browser dependencies
         run: |
