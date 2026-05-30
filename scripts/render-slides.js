@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-
 /**
  * Rattrap Story Slide Rendering Script
  * Renders React TSX slides to 4K (3840x2160) PNG images
- * 
+ *
  * Slide List:
  * 1. Title
  * 2. StorySetting
@@ -26,9 +25,14 @@
  * 19. ThankYou
  */
 
-const fs = require('fs');
-const path = require('path');
-const puppeteer = require('puppeteer');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import puppeteer from 'puppeteer';
+
+// ESM-compatible __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const SLIDE_BASE_URL = process.env.SLIDE_URL || 'http://localhost:5173';
@@ -67,7 +71,7 @@ async function renderSlides() {
   console.log('🎬 Starting Rattrap Story slide rendering to 4K...');
   console.log(`📍 Target URL: ${SLIDE_BASE_URL}`);
   console.log(`📊 Total slides: ${SLIDES.length}`);
-  
+
   // Create output directory if it doesn't exist
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -84,8 +88,8 @@ async function renderSlides() {
         '--disable-dev-shm-usage',
       ],
     });
-
     console.log('✅ Browser launched');
+
     const page = await browser.newPage();
     await page.setViewport(VIEWPORT);
 
@@ -93,27 +97,26 @@ async function renderSlides() {
     for (let i = 0; i < SLIDES.length; i++) {
       const slideName = SLIDES[i];
       const slideNumber = i + 1;
-      
+
       try {
-        // Navigate to the slide (adjust position based on your App.tsx routing)
         const slideUrl = `${SLIDE_BASE_URL}/slide${slideNumber}`;
-        
+
         console.log(`\n📖 Rendering slide ${slideNumber}/${SLIDES.length} (${slideName})...`);
         console.log(`   URL: ${slideUrl}`);
-        
-        await page.goto(slideUrl, { 
+
+        await page.goto(slideUrl, {
           waitUntil: 'networkidle2',
           timeout: 30000,
         });
 
         // Wait for slide content to render
-        await page.waitForTimeout(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const outputPath = path.join(
           OUTPUT_DIR,
           `slide-${String(slideNumber).padStart(2, '0')}-${slideName}.png`
         );
-        
+
         await page.screenshot({
           path: outputPath,
           type: 'png',
@@ -130,7 +133,7 @@ async function renderSlides() {
     console.log(`\n🎉 All slides rendered successfully!`);
     console.log(`📁 Output folder: ${OUTPUT_DIR}`);
     console.log(`📊 Total files: ${SLIDES.length}`);
-    
+
   } catch (error) {
     console.error('❌ Rendering failed:', error);
     process.exit(1);
@@ -141,12 +144,13 @@ async function renderSlides() {
   }
 }
 
-// Run if called directly
-if (require.main === module) {
+// ESM-compatible entry point check
+const isMain = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
   renderSlides().catch(error => {
     console.error(error);
     process.exit(1);
   });
 }
 
-module.exports = { renderSlides };
+export { renderSlides };
