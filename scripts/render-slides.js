@@ -1,18 +1,38 @@
 #!/usr/bin/env node
 
 /**
- * Slide Rendering Script
- * Renders slides to 4K (3840x2160) PNG images
- * Supports HTML/CSS slides and screenshot-based rendering
+ * Rattrap Story Slide Rendering Script
+ * Renders React TSX slides to 4K (3840x2160) PNG images
+ * 
+ * Slide List:
+ * 1. Title
+ * 2. StorySetting
+ * 3. ThemePlotCharacters
+ * 4. CharacterSketches
+ * 5. ThemesSymbols
+ * 6. TitleSymbolism
+ * 7. Analogy
+ * 8. AssertionReasoning
+ * 9. KeyPoints
+ * 10. LiteraryDevicesOne
+ * 11. LiteraryDevicesTwo
+ * 12. ExtractOne
+ * 13. ExtractTwo
+ * 14. VocabularyOne
+ * 15. VocabularyTwo
+ * 16. Summary
+ * 17. AuthorProfile
+ * 18. Conclusion
+ * 19. ThankYou
  */
 
 const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 
-const SLIDES_DIR = path.join(__dirname, '../slides');
+// Configuration
+const SLIDE_BASE_URL = process.env.SLIDE_URL || 'http://localhost:5173';
 const OUTPUT_DIR = path.join(__dirname, '../slide-outputs');
-const SLIDES_HTML = path.join(SLIDES_DIR, 'index.html');
 
 // 4K resolution
 const VIEWPORT = {
@@ -20,8 +40,33 @@ const VIEWPORT = {
   height: 2160,
 };
 
+// Slide order from slideLoader
+const SLIDES = [
+  'Title',
+  'StorySetting',
+  'ThemePlotCharacters',
+  'CharacterSketches',
+  'ThemesSymbols',
+  'TitleSymbolism',
+  'Analogy',
+  'AssertionReasoning',
+  'KeyPoints',
+  'LiteraryDevicesOne',
+  'LiteraryDevicesTwo',
+  'ExtractOne',
+  'ExtractTwo',
+  'VocabularyOne',
+  'VocabularyTwo',
+  'Summary',
+  'AuthorProfile',
+  'Conclusion',
+  'ThankYou',
+];
+
 async function renderSlides() {
-  console.log('🎬 Starting slide rendering process...');
+  console.log('🎬 Starting Rattrap Story slide rendering to 4K...');
+  console.log(`📍 Target URL: ${SLIDE_BASE_URL}`);
+  console.log(`📊 Total slides: ${SLIDES.length}`);
   
   // Create output directory if it doesn't exist
   if (!fs.existsSync(OUTPUT_DIR)) {
@@ -29,68 +74,63 @@ async function renderSlides() {
     console.log(`✅ Created output directory: ${OUTPUT_DIR}`);
   }
 
-  // Check if slides exist
-  if (!fs.existsSync(SLIDES_HTML)) {
-    console.warn(`⚠️  Slides not found at ${SLIDES_HTML}`);
-    console.log('Create your slides HTML file at: slides/index.html');
-    return;
-  }
-
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+      ],
     });
 
+    console.log('✅ Browser launched');
     const page = await browser.newPage();
     await page.setViewport(VIEWPORT);
 
-    const slideUrl = `file://${SLIDES_HTML}`;
-    console.log(`📖 Loading slides from: ${slideUrl}`);
-    
-    await page.goto(slideUrl, { waitUntil: 'networkidle2' });
-
-    // Get slide count - adjust selector based on your slide framework
-    // Common selectors: .slide, [role="presentation"], .swiper-slide, etc.
-    const slideCount = await page.evaluate(() => {
-      const slides = document.querySelectorAll(
-        '.slide, [data-slide], .swiper-slide, section'
-      );
-      return slides.length;
-    });
-
-    console.log(`📊 Found ${slideCount} slides`);
-
     // Render each slide
-    for (let i = 0; i < slideCount; i++) {
+    for (let i = 0; i < SLIDES.length; i++) {
+      const slideName = SLIDES[i];
+      const slideNumber = i + 1;
+      
       try {
-        // Navigate to specific slide (adjust based on your framework)
-        await page.evaluate((slideIndex) => {
-          const slides = document.querySelectorAll(
-            '.slide, [data-slide], .swiper-slide, section'
-          );
-          if (slides[slideIndex]) {
-            slides[slideIndex].scrollIntoView({ behavior: 'smooth' });
-          }
-        }, i);
+        // Navigate to the slide (adjust position based on your App.tsx routing)
+        const slideUrl = `${SLIDE_BASE_URL}/slide${slideNumber}`;
+        
+        console.log(`\n📖 Rendering slide ${slideNumber}/${SLIDES.length} (${slideName})...`);
+        console.log(`   URL: ${slideUrl}`);
+        
+        await page.goto(slideUrl, { 
+          waitUntil: 'networkidle2',
+          timeout: 30000,
+        });
 
-        await page.waitForTimeout(500); // Wait for animations
+        // Wait for slide content to render
+        await page.waitForTimeout(1000);
 
-        const outputPath = path.join(OUTPUT_DIR, `slide-${String(i + 1).padStart(2, '0')}.png`);
+        const outputPath = path.join(
+          OUTPUT_DIR,
+          `slide-${String(slideNumber).padStart(2, '0')}-${slideName}.png`
+        );
         
         await page.screenshot({
           path: outputPath,
           type: 'png',
+          fullPage: false,
         });
 
-        console.log(`✅ Rendered slide ${i + 1}/${slideCount} → ${path.basename(outputPath)}`);
+        const fileSize = (fs.statSync(outputPath).size / 1024 / 1024).toFixed(2);
+        console.log(`✅ Rendered → ${path.basename(outputPath)} (${fileSize} MB)`);
       } catch (error) {
-        console.error(`❌ Error rendering slide ${i + 1}:`, error.message);
+        console.error(`❌ Error rendering slide ${slideNumber} (${slideName}):`, error.message);
       }
     }
 
-    console.log(`\n🎉 All slides rendered successfully to: ${OUTPUT_DIR}`);
+    console.log(`\n🎉 All slides rendered successfully!`);
+    console.log(`📁 Output folder: ${OUTPUT_DIR}`);
+    console.log(`📊 Total files: ${SLIDES.length}`);
+    
   } catch (error) {
     console.error('❌ Rendering failed:', error);
     process.exit(1);
