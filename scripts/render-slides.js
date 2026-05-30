@@ -16,11 +16,9 @@ const __dirname = path.dirname(__filename);
 const SLIDE_BASE_URL = process.env.SLIDE_URL || 'http://localhost:5173';
 const OUTPUT_DIR = path.join(__dirname, '../slide-outputs');
 
-// Each slide is rendered at 1920x1080 per App.tsx contract.
-// We screenshot at 2x device scale for 4K output (3840x2160).
 const SLIDE_WIDTH = 1920;
 const SLIDE_HEIGHT = 1080;
-const DEVICE_SCALE = 2; // results in 3840x2160 per slide
+const DEVICE_SCALE = 2;
 
 async function renderSlides() {
   console.log('🎬 Starting Rattrap Story slide rendering...');
@@ -45,29 +43,50 @@ async function renderSlides() {
 
     const page = await browser.newPage();
 
-    // Set viewport to exactly one slide width so layout is correct.
-    // DeviceScaleFactor=2 gives us 4K output when we crop each slide.
     await page.setViewport({
       width: SLIDE_WIDTH,
       height: SLIDE_HEIGHT,
       deviceScaleFactor: DEVICE_SCALE,
     });
 
+    // Log all browser console messages and errors
+    page.on('console', msg => console.log(`[browser ${msg.type()}] ${msg.text()}`));
+    page.on('pageerror', err => console.error(`[browser error] ${err.message}`));
+    page.on('requestfailed', req => console.error(`[request failed] ${req.url()} — ${req.failure()?.errorText}`));
+
     console.log('🌐 Navigating to /allslides...');
-    await page.goto(`${SLIDE_BASE_URL}/allslides`, {
+    const response = await page.goto(`${SLIDE_BASE_URL}/allslides`, {
       waitUntil: 'networkidle0',
       timeout: 60000,
     });
 
-    // Extra wait for fonts and animations to settle
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    console.log(`📡 HTTP status: ${response?.status()}`);
 
-    // Find all .slide elements
+    // Wait extra for JS to hydrate
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Dump the full page HTML for diagnosis
+    const html = await page.content();
+    console.log(`📄 Page HTML (first 3000 chars):\n${html.slice(0, 3000)}`);
+
+    // Take a debug screenshot to see what Puppeteer actually sees
+    const debugPath = path.join(OUTPUT_DIR, '_debug.png');
+    await page.screenshot({ path: debugPath, fullPage: true });
+    console.log(`🔍 Debug screenshot saved to: ${debugPath}`);
+
+    // Try multiple selectors to find slides
+    const divCount = await page.$$eval('div', els => els.length);
+    console.log(`Total divs on page: ${divCount}`);
+
     const slideCount = await page.$$eval('.slide', els => els.length);
-    console.log(`📊 Found ${slideCount} slides`);
+    console.log(`📊 .slide elements found: ${slideCount}`);
+
+    // Also check for the bg-black wrapper from AllSlides
+    const bgBlackCount = await page.$$eval('.bg-black', els => els.length);
+    console.log(`bg-black elements found: ${bgBlackCount}`);
 
     if (slideCount === 0) {
-      throw new Error('No .slide elements found on /allslides — check the route is working');
+      throw new Error('No .slide elements found — see debug output above');
     }
 
     const slideNames = [
@@ -82,7 +101,6 @@ async function renderSlides() {
       const slideNumber = i + 1;
       const slideName = slideNames[i] || `Slide${slideNumber}`;
 
-      // Get the bounding box of this specific .slide element
       const boundingBox = await page.$$eval('.slide', (els, idx) => {
         const el = els[idx];
         const rect = el.getBoundingClientRect();
@@ -96,8 +114,6 @@ async function renderSlides() {
 
       console.log(`\n📖 Rendering slide ${slideNumber}/${slideCount} (${slideName})...`);
 
-      // Screenshot just this slide's region
-      // Multiply by deviceScaleFactor for actual pixel coords
       await page.screenshot({
         path: outputPath,
         type: 'png',
