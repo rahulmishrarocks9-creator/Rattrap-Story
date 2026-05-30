@@ -1,59 +1,125 @@
 export default function AuthorProfile() {
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-ivory font-body text-ink flex">
-      <div className="relative w-[40vw] h-full overflow-hidden bg-sapphire flex flex-col justify-center items-center px-[3vw]">
-        <div className="absolute inset-0 bg-gradient-to-b from-navy to-sapphire" />
-        <div className="absolute -left-[14vw] -top-[14vw] w-[34vw] h-[34vw] rounded-full border border-gold/20" />
-        <div className="absolute -right-[16vw] bottom-[6vh] w-[30vw] h-[30vw] rounded-full border border-gold/15" />
-        <div className="relative flex flex-col items-center text-center">
-          <span className="font-display text-[16vw] leading-none text-gold">SL</span>
-          <div className="mt-[3vh] h-[2px] w-[8vw] bg-gold/70" />
-          <p className="mt-[3vh] font-display italic text-[2.4vw] text-ivory leading-tight">
+    <div className="relative w-screen h-screen overflow-hidden bg-[#F5F0E8] flex font-body">
+
+      {/* LEFT PREMIUM PANEL */}
+      <div className="relative w-[40%] h-full overflow-hidden bg-[#0D2C5A] flex flex-col justify-center items-center px-10">
+
+        {/* Decorative circles */}
+        <div className="absolute -left-40 -top-40 w-[500px] h-[500px] rounded-full border border-[#C9A14A]/15" />
+        <div className="absolute -right-44 bottom-10 w-[450px] h-[450px] rounded-full border border-[#C9A14A]/10" />
+
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_40%)]" />
+
+        {/* Portrait */}
+        <div className="relative z-10 flex flex-col items-center">
+
+          <div className="relative">
+            {/* Outer ring */}
+            <div className="absolute -inset-4 rounded-full border border-[#C9A14A]/40" />
+
+            {/* Main portrait */}
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/1/11/Selma_Lagerl%C3%B6f.jpg"
+              alt="Selma Lagerlöf"
+              className="w-[320px] h-[320px] object-cover rounded-full border-[6px] border-[#C9A14A] shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+            />
+          </div>
+
+          {/* Divider */}
+          <div className="mt-10 w-24 h-[2px] bg-[#C9A14A]" />
+
+          {/* Name */}
+          <h2 className="mt-8 text-white italic text-[42px] font-serif">
             Selma Lagerlöf
-          </p>
-          <p className="mt-[2vh] text-[1.65vw] tracking-[0.22em] uppercase text-goldbright/90 leading-relaxed">
-            First woman to win the
-            <span className="block">Nobel Prize in Literature</span>
-          </p>
+          </h2>
+
+          {/* Achievement */}
+          <div className="mt-8 text-center">
+            <p className="uppercase tracking-[0.35em] text-[#D6B267] text-[22px] leading-relaxed">
+              First Woman To Win The
+            </p>
+            <p className="uppercase tracking-[0.35em] text-[#D6B267] text-[22px] leading-relaxed">
+              Nobel Prize In Literature
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex-1 h-full flex flex-col justify-center px-[5vw]">
-        <p className="text-gold font-semibold tracking-[0.36em] text-[1.6vw] uppercase">
-          Author Profile
-        </p>
-        <h1 className="font-display font-bold text-[5vw] leading-none mt-[2vh] text-sapphire">
-          Selma Lagerlöf
-        </h1>
-        <p className="mt-[3.5vh] text-[1.85vw] leading-relaxed text-ink/80 max-w-[44vw] [text-wrap:pretty]">
-          A Swedish writer known for her imaginative storytelling, moral themes,
-          and use of folklore and legend. She became the first woman to win the
-          Nobel Prize in Literature in 1909.
+      {/* RIGHT CONTENT PANEL */}
+      <div className="relative flex-1 flex flex-col justify-center px-24">
+
+        {/* Header */}
+        <div>
+          <p className="uppercase tracking-[0.45em] text-[#C9A14A] text-[20px] font-medium">
+            Author Profile
+          </p>
+
+          <h1 className="mt-5 text-[92px] font-serif font-bold leading-none text-[#153D7A]">
+            Selma Lagerlöf
+          </h1>
+
+          <div className="mt-10 w-32 h-[3px] bg-[#C9A14A]" />
+        </div>
+
+        {/* Description */}
+        <p className="mt-10 text-[30px] leading-[1.8] text-[#4A4A4A] max-w-[900px]">
+          A Swedish writer known for her imaginative storytelling,
+          moral themes, and use of folklore and legend.
+          She became the first woman to win the Nobel Prize in
+          Literature in 1909, paving the way for generations of
+          women writers around the world.
         </p>
 
-        <div className="mt-[5vh] grid grid-cols-2 gap-x-[3vw] gap-y-[3.2vh] max-w-[44vw]">
-          <div className="border-l-2 border-gold pl-[1.4vw]">
-            <p className="text-[1.5vw] tracking-[0.2em] uppercase text-muted">Born</p>
-            <p className="font-display text-[2.4vw] text-sapphire leading-tight">1858</p>
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-x-24 gap-y-12 mt-16 max-w-[900px]">
+
+          <div className="border-l-[3px] border-[#C9A14A] pl-6">
+            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
+              Born
+            </p>
+            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
+              1858
+            </p>
           </div>
-          <div className="border-l-2 border-gold pl-[1.4vw]">
-            <p className="text-[1.5vw] tracking-[0.2em] uppercase text-muted">Died</p>
-            <p className="font-display text-[2.4vw] text-sapphire leading-tight">1940</p>
+
+          <div className="border-l-[3px] border-[#C9A14A] pl-6">
+            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
+              Died
+            </p>
+            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
+              1940
+            </p>
           </div>
-          <div className="border-l-2 border-gold pl-[1.4vw]">
-            <p className="text-[1.5vw] tracking-[0.2em] uppercase text-muted">Nationality</p>
-            <p className="font-display text-[2.4vw] text-sapphire leading-tight">Swedish</p>
+
+          <div className="border-l-[3px] border-[#C9A14A] pl-6">
+            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
+              Nationality
+            </p>
+            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
+              Swedish
+            </p>
           </div>
-          <div className="border-l-2 border-gold pl-[1.4vw]">
-            <p className="text-[1.5vw] tracking-[0.2em] uppercase text-muted">Nobel Prize</p>
-            <p className="font-display text-[2.4vw] text-sapphire leading-tight">1909</p>
+
+          <div className="border-l-[3px] border-[#C9A14A] pl-6">
+            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
+              Nobel Prize
+            </p>
+            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
+              1909
+            </p>
           </div>
         </div>
 
-        <div className="mt-[4.5vh] max-w-[44vw]">
-          <p className="text-[1.5vw] tracking-[0.2em] uppercase text-muted">Literary Style</p>
-          <p className="mt-[1vh] text-[1.7vw] text-emerald font-medium leading-snug">
-            Imaginative · moral · folkloric · emotional · symbolic
+        {/* Literary Style */}
+        <div className="mt-16">
+          <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
+            Literary Style
+          </p>
+
+          <p className="mt-5 text-[30px] leading-relaxed text-[#0F6A58] font-medium">
+            Imaginative • Moral • Folkloric • Emotional • Symbolic
           </p>
         </div>
       </div>

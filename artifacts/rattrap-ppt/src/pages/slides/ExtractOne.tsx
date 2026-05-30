@@ -12,7 +12,6 @@ export default function ExtractOne() {
         </div>
         <span className="font-display text-[1.5vw] text-muted">Extract 01</span>
       </div>
-
       <div className="mt-[4vh] grid grid-cols-[38%_1fr] gap-[3vw] flex-1">
         <div className="relative rounded-[0.6vw] bg-sapphire text-pearl p-[2.6vw] flex flex-col justify-center">
           <span className="font-display text-[6vw] leading-[0.6] text-goldbright/60">“</span>
@@ -32,7 +31,7 @@ export default function ExtractOne() {
             <p className="text-[1.65vw] font-semibold text-ink">Q1. Why had the world existed only as a public highway for the peddler?</p>
             <div className="mt-[1.4vh] grid grid-cols-2 gap-[1vw] text-[1.55vw]">
               <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">a) He loved travelling</span>
-              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-emerald text-pearl font-semibold">b) He had no permanent home ✓</span>
+              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-emerald text-pearl font-semibold">b) He had no permanent home </span>
               <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">c) He was a tourist</span>
               <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">d) He searched for treasure</span>
             </div>
