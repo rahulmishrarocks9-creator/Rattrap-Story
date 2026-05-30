@@ -40,6 +40,10 @@ jobs:
         working-directory: artifacts/rattrap-ppt
         run: npm install @tailwindcss/vite --save-dev
 
+      - name: Install puppeteer for render script
+        working-directory: scripts
+        run: npm install puppeteer
+
       - name: Install browser dependencies
         run: |
           sudo apt-get update
