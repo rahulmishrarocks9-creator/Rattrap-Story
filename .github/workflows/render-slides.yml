@@ -36,6 +36,10 @@ jobs:
         working-directory: artifacts/rattrap-ppt
         run: npm install
 
+      - name: Install missing Tailwind Vite plugin
+        working-directory: artifacts/rattrap-ppt
+        run: npm install @tailwindcss/vite --save-dev
+
       - name: Install browser dependencies
         run: |
           sudo apt-get update
@@ -56,13 +60,13 @@ jobs:
           PORT: 5173
           BASE_PATH: /
         run: |
-          npm run dev -- --host 127.0.0.1 > /tmp/dev-server.log 2>&1 &
+          npm run dev > /tmp/dev-server.log 2>&1 &
           echo $! > /tmp/dev-server.pid
 
       - name: Wait for server
         run: |
           for i in {1..60}; do
-            if curl -fs http://127.0.0.1:5173 > /dev/null; then
+            if curl -fs http://localhost:5173 > /dev/null; then
               echo "Server ready"
               exit 0
             fi
@@ -74,7 +78,7 @@ jobs:
 
       - name: Render slides
         env:
-          SLIDE_URL: http://127.0.0.1:5173
+          SLIDE_URL: http://localhost:5173
         run: node scripts/render-slides.js
 
       - name: Stop server
