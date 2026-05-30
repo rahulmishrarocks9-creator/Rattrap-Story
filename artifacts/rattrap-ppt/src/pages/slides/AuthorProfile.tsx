@@ -1,128 +1,232 @@
-export default function AuthorProfile() {
-  return (
-    <div className="relative w-screen h-screen overflow-hidden bg-ivory flex font-body">
-
-      {/* LEFT PREMIUM PANEL */}
-      <div className="relative w-[40%] h-full overflow-hidden bg-[#0D2C5A] flex flex-col justify-center items-center px-10">
-
-        {/* Decorative circles */}
-        <div className="absolute -left-40 -top-40 w-[500px] h-[500px] rounded-full border border-[#C9A14A]/15" />
-        <div className="absolute -right-44 bottom-10 w-[450px] h-[450px] rounded-full border border-[#C9A14A]/10" />
-
-        {/* Subtle radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_40%)]" />
-
-        {/* Portrait */}
-        <div className="relative z-10 flex flex-col items-center">
-
-          <div className="relative">
-            {/* Outer ring */}
-            <div className="absolute -inset-4 rounded-full border border-[#C9A14A]/40" />
-
-            {/* Main portrait */}
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/11/Selma_Lagerl%C3%B6f.jpg"
-              alt="Selma Lagerlöf"
-              className="w-[320px] h-[320px] object-cover rounded-full border-[6px] border-[#C9A14A] shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
-            />
-          </div>
-
-          {/* Divider */}
-          <div className="mt-10 w-24 h-[2px] bg-[#C9A14A]" />
-
-          {/* Name */}
-          <h2 className="mt-8 text-white italic text-[42px] font-serif">
-            Selma Lagerlöf
-          </h2>
-
-          {/* Achievement */}
-          <div className="mt-8 text-center">
-            <p className="uppercase tracking-[0.35em] text-[#D6B267] text-[22px] leading-relaxed">
-              First Woman To Win The
-            </p>
-            <p className="uppercase tracking-[0.35em] text-[#D6B267] text-[22px] leading-relaxed">
-              Nobel Prize In Literature
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT CONTENT PANEL */}
-      <div className="relative flex-1 flex flex-col justify-center px-24">
-
-        {/* Header */}
-        <div>
-          <p className="uppercase tracking-[0.45em] text-[#C9A14A] text-[20px] font-medium">
-            Author Profile
-          </p>
-
-          <h1 className="mt-5 text-[92px] font-serif font-bold leading-none text-[#153D7A]">
-            Selma Lagerlöf
-          </h1>
-
-          <div className="mt-10 w-32 h-[3px] bg-[#C9A14A]" />
-        </div>
-
-        {/* Description */}
-        <p className="mt-10 text-[30px] leading-[1.8] text-[#4A4A4A] max-w-[900px]">
-          A Swedish writer known for her imaginative storytelling,
-          moral themes, and use of folklore and legend.
-          She became the first woman to win the Nobel Prize in
-          Literature in 1909, paving the way for generations of
-          women writers around the world.
-        </p>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-x-24 gap-y-12 mt-16 max-w-[900px]">
-
-          <div className="border-l-[3px] border-[#C9A14A] pl-6">
-            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
-              Born
-            </p>
-            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
-              1858
-            </p>
-          </div>
-
-          <div className="border-l-[3px] border-[#C9A14A] pl-6">
-            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
-              Died
-            </p>
-            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
-              1940
-            </p>
-          </div>
-
-          <div className="border-l-[3px] border-[#C9A14A] pl-6">
-            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
-              Nationality
-            </p>
-            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
-              Swedish
-            </p>
-          </div>
-
-          <div className="border-l-[3px] border-[#C9A14A] pl-6">
-            <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
-              Nobel Prize
-            </p>
-            <p className="mt-2 text-[#153D7A] text-5xl font-serif">
-              1909
-            </p>
-          </div>
-        </div>
-
-        {/* Literary Style */}
-        <div className="mt-16">
-          <p className="uppercase tracking-[0.25em] text-[#7A7A7A] text-lg">
-            Literary Style
-          </p>
-
-          <p className="mt-5 text-[30px] leading-relaxed text-[#0F6A58] font-medium">
-            Imaginative • Moral • Folkloric • Emotional • Symbolic
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+{
+  /* RIGHT PANEL */
 }
+<div className="relative flex-1 px-[80px] py-[60px] flex flex-col h-full">
+  {/* TOP LABEL */}
+  <div>
+    <p
+      className="
+        uppercase
+        tracking-[0.65em]
+        text-[#D4B06A]
+        text-[12px]
+        font-medium
+      "
+    >
+      NOBEL PRIZE ARCHIVE
+    </p>
+
+    <div className="mt-4 w-[180px] h-px bg-[#D4B06A]/30" />
+  </div>
+
+  {/* TITLE */}
+  <div className="mt-[40px]">
+    <h1
+      className="
+        text-[#F5F1E8]
+        text-[118px]
+        leading-[0.85]
+        tracking-[-0.05em]
+      "
+      style={{
+        fontFamily: "Playfair Display, serif",
+        fontWeight: 900,
+      }}
+    >
+      Selma
+    </h1>
+
+    <h1
+      className="
+        text-[#F5F1E8]
+        text-[118px]
+        leading-[0.85]
+        tracking-[-0.05em]
+      "
+      style={{
+        fontFamily: "Playfair Display, serif",
+        fontWeight: 900,
+      }}
+    >
+      Lagerlöf
+    </h1>
+  </div>
+
+  {/* DESCRIPTION */}
+  <div className="mt-[28px] max-w-[900px]">
+    <p
+      className="
+        text-[#D9D1C5]
+        text-[24px]
+        leading-[1.7]
+      "
+    >
+      A Swedish novelist whose works blended folklore, mythology, morality, and
+      imagination into timeless literary masterpieces. Her storytelling reshaped
+      Scandinavian literature and established a legacy that transcended national
+      boundaries. In 1909, she became the first woman to receive the Nobel Prize
+      in Literature.
+    </p>
+  </div>
+
+  {/* RULE */}
+  <div className="mt-[35px] w-[900px] h-px bg-[#D4B06A]/20" />
+
+  {/* STATS */}
+  <div className="mt-[40px] grid grid-cols-2 gap-y-[35px] max-w-[850px]">
+    <div>
+      <h2
+        className="
+          text-[#F5F1E8]
+          text-[62px]
+          leading-none
+        "
+        style={{
+          fontFamily: "Playfair Display, serif",
+        }}
+      >
+        1858
+      </h2>
+
+      <p className="mt-2 uppercase tracking-[0.35em] text-[#D4B06A] text-[11px]">
+        BORN
+      </p>
+    </div>
+
+    <div>
+      <h2
+        className="
+          text-[#F5F1E8]
+          text-[62px]
+          leading-none
+        "
+        style={{
+          fontFamily: "Playfair Display, serif",
+        }}
+      >
+        1940
+      </h2>
+
+      <p className="mt-2 uppercase tracking-[0.35em] text-[#D4B06A] text-[11px]">
+        DIED
+      </p>
+    </div>
+
+    <div>
+      <h2
+        className="
+          text-[#F5F1E8]
+          text-[62px]
+          leading-none
+        "
+        style={{
+          fontFamily: "Playfair Display, serif",
+        }}
+      >
+        Swedish
+      </h2>
+
+      <p className="mt-2 uppercase tracking-[0.35em] text-[#D4B06A] text-[11px]">
+        NATIONALITY
+      </p>
+    </div>
+
+    <div>
+      <h2
+        className="
+          text-[#F5F1E8]
+          text-[62px]
+          leading-none
+        "
+        style={{
+          fontFamily: "Playfair Display, serif",
+        }}
+      >
+        1909
+      </h2>
+
+      <p className="mt-2 uppercase tracking-[0.35em] text-[#D4B06A] text-[11px]">
+        NOBEL PRIZE
+      </p>
+    </div>
+  </div>
+
+  {/* LEGACY */}
+  <div className="mt-[35px]">
+    <p className="uppercase tracking-[0.5em] text-[#D4B06A] text-[11px]">
+      LITERARY LEGACY
+    </p>
+
+    <div className="flex flex-wrap gap-3 mt-5">
+      {[
+        "Folklore",
+        "Moral Allegory",
+        "Nordic Mythology",
+        "Symbolism",
+        "Emotional Storytelling",
+      ].map((item) => (
+        <span
+          key={item}
+          className="
+            px-5
+            py-2
+            border
+            border-[#D4B06A]/25
+            rounded-full
+            text-[#F5F1E8]
+            text-[14px]
+          "
+        >
+          {item}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  {/* QUOTE */}
+  <div className="mt-[35px] max-w-[780px]">
+    <p
+      className="
+        text-[#D4B06A]
+        text-[40px]
+        italic
+        leading-tight
+      "
+      style={{
+        fontFamily: "Playfair Display, serif",
+      }}
+    >
+      “Literature preserves the soul of a nation.”
+    </p>
+  </div>
+
+  {/* SIGNATURE */}
+  <svg
+    viewBox="0 0 900 240"
+    className="
+      absolute
+      bottom-[35px]
+      right-[60px]
+      w-[250px]
+      opacity-[0.12]
+    "
+  >
+    <path
+      d="
+      M55 160
+      C90 80 140 80 160 150
+      C170 180 200 180 230 130
+      C280 50 330 60 360 130
+      C380 170 430 180 470 120
+      C520 50 570 60 610 130
+      C640 180 710 180 770 120
+      C800 90 830 100 860 150
+      "
+      fill="none"
+      stroke="#D4B06A"
+      strokeWidth="5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+</div>;
