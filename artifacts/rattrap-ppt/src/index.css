@@ -6,19 +6,50 @@
   --color-bg: var(--slide-bg);
   --color-text: var(--slide-text);
   --color-muted: var(--slide-muted);
+
+  --color-ink: var(--slide-ink);
+  --color-ivory: var(--slide-ivory);
+  --color-pearl: var(--slide-pearl);
+  --color-gold: var(--slide-gold);
+  --color-goldbright: var(--slide-goldbright);
+  --color-navy: var(--slide-navy);
+  --color-sapphire: var(--slide-sapphire);
+  --color-royal: var(--slide-royal);
+  --color-teal: var(--slide-teal);
+  --color-emerald: var(--slide-emerald);
+  --color-jade: var(--slide-jade);
+  --color-indigo: var(--slide-indigo);
+  --color-plum: var(--slide-plum);
+  --color-copper: var(--slide-copper);
+
   --font-display: var(--font-display-family);
   --font-body: var(--font-body-family);
 }
 
 :root {
-  /* Replace these with brand colors */
-  --slide-primary: #4f46e5;
-  --slide-accent: #06b6d4;
-  --slide-bg: #f8fafc;
-  --slide-text: #0f172a;
-  --slide-muted: #64748b;
-  --font-display-family: "Inter", system-ui, sans-serif;
-  --font-body-family: "Inter", system-ui, sans-serif;
+  --slide-primary: #173e72;
+  --slide-accent: #c49a45;
+  --slide-bg: #f4eddf;
+  --slide-text: #16202e;
+  --slide-muted: #6e7787;
+
+  --slide-ink: #16202e;
+  --slide-ivory: #f4eddf;
+  --slide-pearl: #fbf7ef;
+  --slide-gold: #c49a45;
+  --slide-goldbright: #e6c570;
+  --slide-navy: #0d2240;
+  --slide-sapphire: #173e72;
+  --slide-royal: #1e5ba8;
+  --slide-teal: #0e5e63;
+  --slide-emerald: #0b6e4d;
+  --slide-jade: #2e9e83;
+  --slide-indigo: #2b2f6b;
+  --slide-plum: #5a335e;
+  --slide-copper: #b06b3a;
+
+  --font-display-family: "Playfair Display", Georgia, serif;
+  --font-body-family: "Manrope", system-ui, sans-serif;
   color-scheme: light;
 }
 

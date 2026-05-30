@@ -1,6 +1,6 @@
-# [Project name]
+# The Rattrap — Premium Presentation
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A luxurious 17-slide study deck on "The Rattrap" by Selma Lagerlöf (Class 12 English, Flamingo), built as a slides artifact with a jewel-tone "midnight-jazz" visual system.
 
 ## Run & Operate
 
