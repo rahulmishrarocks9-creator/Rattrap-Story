@@ -14,7 +14,7 @@ export default function Analogy() {
       </div>
       <div className="mt-[5vh] grid grid-cols-3 grid-rows-2 gap-[2vw] flex-1">
         <div className="rounded-[0.6vw] bg-white border border-sapphire/20 p-[2vw] flex flex-col justify-center text-center">
-          <p className="font-display text-[1.9vw] text-sapphire">Rattrap : Temptation :: ________ : ________</p>
+          <p className="font-display text-[1.9vw] text-sapphire">Rattrap : Temptation</p>
           <p className="text-gold text-[1.6vw] my-[1vh]">∷</p>
           <p className="font-display text-[1.9vw] text-emerald">Forest : Confusion</p>
         </div>
