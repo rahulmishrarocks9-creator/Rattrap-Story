@@ -1,0 +1,14 @@
+#!/bin/sh
+# Pre-commit hook to render slides to 4K images
+
+echo "🎬 Running pre-commit slide rendering..."
+node scripts/render-slides.js
+
+if [ $? -eq 0 ]; then
+    echo "✅ Slides rendered successfully"
+    # Stage the generated images
+    git add slide-outputs/ 2>/dev/null || true
+else
+    echo "❌ Slide rendering failed"
+    exit 1
+fi
