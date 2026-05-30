@@ -66,3 +66,15 @@ id = "MRJ6cUgbOWkIiF_5L1J7t"
 uri = "file://artifacts/rattrap-ppt/public/images/characters-bg.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "Kzg04-oG8Pm-imFuobbQm"
+uri = "file://artifacts/rattrap-ppt/public/images/vocab1-bg.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "EJAbJVOmHF0MZ1tR_gR2K"
+uri = "file://artifacts/rattrap-ppt/public/images/vocab2-bg.png"
+type = "image"
+title = "generated_image"

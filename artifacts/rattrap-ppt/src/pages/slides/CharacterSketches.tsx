@@ -7,9 +7,9 @@ export default function CharacterSketches() {
         src={`${base}images/characters-bg.png`}
         crossOrigin="anonymous"
         alt="A lone peddler walking a snowy road at dusk"
-        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        className="absolute inset-0 w-full h-full object-cover opacity-45"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-navy/85 via-sapphire/80 to-plum/85" />
+      <div className="absolute inset-0 bg-gradient-to-br from-navy/70 via-sapphire/55 to-plum/70" />
       <div className="absolute -right-[10vw] -top-[14vh] w-[34vw] h-[34vw] rounded-full border border-goldbright/15" />
       <div className="absolute -left-[8vw] -bottom-[18vh] w-[26vw] h-[26vw] rounded-full border border-goldbright/10" />
       <div className="relative flex items-end justify-between">

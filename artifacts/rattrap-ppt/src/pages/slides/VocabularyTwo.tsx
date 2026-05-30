@@ -1,7 +1,16 @@
+const base = import.meta.env.BASE_URL;
+
 export default function VocabularyTwo() {
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-ivory font-body text-ink px-[6vw] py-[7vh] flex flex-col">
-      <div className="flex items-end justify-between">
+      <img
+        src={`${base}images/vocab2-bg.png`}
+        crossOrigin="anonymous"
+        alt="A faint watercolour of a snowy forest path and forge cottage"
+        className="absolute inset-0 w-full h-full object-cover opacity-25"
+      />
+      <div className="absolute inset-0 bg-ivory/55" />
+      <div className="relative flex items-end justify-between">
         <div>
           <p className="text-indigo font-semibold tracking-[0.34em] text-[1.55vw] uppercase">
             Glossary · Part Two
@@ -13,7 +22,7 @@ export default function VocabularyTwo() {
         <span className="font-display text-[1.6vw] text-muted">R – Z</span>
       </div>
 
-      <div className="mt-[4.5vh] grid grid-cols-2 gap-x-[2.4vw] gap-y-[1.6vh] flex-1 content-start">
+      <div className="relative mt-[4.5vh] grid grid-cols-2 gap-x-[2.4vw] gap-y-[1.6vh] flex-1 content-start">
         <div className="rounded-[0.5vw] bg-white border-l-[4px] border-indigo shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
           <span className="font-display text-[1.75vw] text-indigo shrink-0">Repentance</span>
           <span className="text-[1.5vw] leading-snug text-ink/70">— feeling sorry for wrongdoing</span>
