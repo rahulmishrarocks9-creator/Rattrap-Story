@@ -30,10 +30,10 @@ export default function ExtractOne() {
           <div>
             <p className="text-[1.65vw] font-semibold text-ink">Q1. Why had the world existed only as a public highway for the peddler?</p>
             <div className="mt-[1.4vh] grid grid-cols-2 gap-[1vw] text-[1.55vw]">
-              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">a) He loved travelling</span>
-              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-emerald text-pearl font-semibold">b) He had no permanent home </span>
-              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">c) He was a tourist</span>
-              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">d) He searched for treasure</span>
+              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">A) He loved travelling</span>
+              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-emerald text-pearl font-semibold">B) He had no permanent home </span>
+              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">C) He was a tourist</span>
+              <span className="px-[1.2vw] py-[0.9vh] rounded-full bg-sapphire/6 text-ink/70">D) He searched for treasure</span>
             </div>
           </div>
 
