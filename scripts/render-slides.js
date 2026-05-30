@@ -1,28 +1,8 @@
 #!/usr/bin/env node
 /**
  * Rattrap Story Slide Rendering Script
- * Renders React TSX slides to 4K (3840x2160) PNG images
- *
- * Slide List:
- * 1. Title
- * 2. StorySetting
- * 3. ThemePlotCharacters
- * 4. CharacterSketches
- * 5. ThemesSymbols
- * 6. TitleSymbolism
- * 7. Analogy
- * 8. AssertionReasoning
- * 9. KeyPoints
- * 10. LiteraryDevicesOne
- * 11. LiteraryDevicesTwo
- * 12. ExtractOne
- * 13. ExtractTwo
- * 14. VocabularyOne
- * 15. VocabularyTwo
- * 16. Summary
- * 17. AuthorProfile
- * 18. Conclusion
- * 19. ThankYou
+ * Uses the /allslides route to render all slides at once,
+ * then crops each .slide div into a separate 4K PNG.
  */
 
 import fs from 'fs';
@@ -30,49 +10,22 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
 
-// ESM-compatible __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuration
 const SLIDE_BASE_URL = process.env.SLIDE_URL || 'http://localhost:5173';
 const OUTPUT_DIR = path.join(__dirname, '../slide-outputs');
 
-// 4K resolution
-const VIEWPORT = {
-  width: 3840,
-  height: 2160,
-};
-
-// Slide order from slideLoader
-const SLIDES = [
-  'Title',
-  'StorySetting',
-  'ThemePlotCharacters',
-  'CharacterSketches',
-  'ThemesSymbols',
-  'TitleSymbolism',
-  'Analogy',
-  'AssertionReasoning',
-  'KeyPoints',
-  'LiteraryDevicesOne',
-  'LiteraryDevicesTwo',
-  'ExtractOne',
-  'ExtractTwo',
-  'VocabularyOne',
-  'VocabularyTwo',
-  'Summary',
-  'AuthorProfile',
-  'Conclusion',
-  'ThankYou',
-];
+// Each slide is rendered at 1920x1080 per App.tsx contract.
+// We screenshot at 2x device scale for 4K output (3840x2160).
+const SLIDE_WIDTH = 1920;
+const SLIDE_HEIGHT = 1080;
+const DEVICE_SCALE = 2; // results in 3840x2160 per slide
 
 async function renderSlides() {
-  console.log('🎬 Starting Rattrap Story slide rendering to 4K...');
-  console.log(`📍 Target URL: ${SLIDE_BASE_URL}`);
-  console.log(`📊 Total slides: ${SLIDES.length}`);
+  console.log('🎬 Starting Rattrap Story slide rendering...');
+  console.log(`📍 Target URL: ${SLIDE_BASE_URL}/allslides`);
 
-  // Create output directory if it doesn't exist
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     console.log(`✅ Created output directory: ${OUTPUT_DIR}`);
@@ -86,65 +39,91 @@ async function renderSlides() {
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
+        '--font-render-hinting=none',
       ],
     });
-    console.log('✅ Browser launched');
 
     const page = await browser.newPage();
-    await page.setViewport(VIEWPORT);
 
-    // Render each slide
-    for (let i = 0; i < SLIDES.length; i++) {
-      const slideName = SLIDES[i];
-      const slideNumber = i + 1;
+    // Set viewport to exactly one slide width so layout is correct.
+    // DeviceScaleFactor=2 gives us 4K output when we crop each slide.
+    await page.setViewport({
+      width: SLIDE_WIDTH,
+      height: SLIDE_HEIGHT,
+      deviceScaleFactor: DEVICE_SCALE,
+    });
 
-      try {
-        const slideUrl = `${SLIDE_BASE_URL}/slide${slideNumber}`;
+    console.log('🌐 Navigating to /allslides...');
+    await page.goto(`${SLIDE_BASE_URL}/allslides`, {
+      waitUntil: 'networkidle0',
+      timeout: 60000,
+    });
 
-        console.log(`\n📖 Rendering slide ${slideNumber}/${SLIDES.length} (${slideName})...`);
-        console.log(`   URL: ${slideUrl}`);
+    // Extra wait for fonts and animations to settle
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
-        await page.goto(slideUrl, {
-          waitUntil: 'networkidle2',
-          timeout: 30000,
-        });
+    // Find all .slide elements
+    const slideCount = await page.$$eval('.slide', els => els.length);
+    console.log(`📊 Found ${slideCount} slides`);
 
-        // Wait for slide content to render
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        const outputPath = path.join(
-          OUTPUT_DIR,
-          `slide-${String(slideNumber).padStart(2, '0')}-${slideName}.png`
-        );
-
-        await page.screenshot({
-          path: outputPath,
-          type: 'png',
-          fullPage: false,
-        });
-
-        const fileSize = (fs.statSync(outputPath).size / 1024 / 1024).toFixed(2);
-        console.log(`✅ Rendered → ${path.basename(outputPath)} (${fileSize} MB)`);
-      } catch (error) {
-        console.error(`❌ Error rendering slide ${slideNumber} (${slideName}):`, error.message);
-      }
+    if (slideCount === 0) {
+      throw new Error('No .slide elements found on /allslides — check the route is working');
     }
 
-    console.log(`\n🎉 All slides rendered successfully!`);
-    console.log(`📁 Output folder: ${OUTPUT_DIR}`);
-    console.log(`📊 Total files: ${SLIDES.length}`);
+    const slideNames = [
+      'Title', 'StorySetting', 'ThemePlotCharacters', 'CharacterSketches',
+      'ThemesSymbols', 'TitleSymbolism', 'Analogy', 'AssertionReasoning',
+      'KeyPoints', 'LiteraryDevicesOne', 'LiteraryDevicesTwo',
+      'ExtractOne', 'ExtractTwo', 'VocabularyOne', 'VocabularyTwo',
+      'Summary', 'AuthorProfile', 'Conclusion', 'ThankYou',
+    ];
+
+    for (let i = 0; i < slideCount; i++) {
+      const slideNumber = i + 1;
+      const slideName = slideNames[i] || `Slide${slideNumber}`;
+
+      // Get the bounding box of this specific .slide element
+      const boundingBox = await page.$$eval('.slide', (els, idx) => {
+        const el = els[idx];
+        const rect = el.getBoundingClientRect();
+        return { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+      }, i);
+
+      const outputPath = path.join(
+        OUTPUT_DIR,
+        `slide-${String(slideNumber).padStart(2, '0')}-${slideName}.png`
+      );
+
+      console.log(`\n📖 Rendering slide ${slideNumber}/${slideCount} (${slideName})...`);
+
+      // Screenshot just this slide's region
+      // Multiply by deviceScaleFactor for actual pixel coords
+      await page.screenshot({
+        path: outputPath,
+        type: 'png',
+        clip: {
+          x: boundingBox.x,
+          y: boundingBox.y,
+          width: boundingBox.width,
+          height: boundingBox.height,
+        },
+      });
+
+      const fileSize = (fs.statSync(outputPath).size / 1024 / 1024).toFixed(2);
+      console.log(`✅ → ${path.basename(outputPath)} (${fileSize} MB)`);
+    }
+
+    console.log(`\n🎉 All ${slideCount} slides rendered!`);
+    console.log(`📁 Output: ${OUTPUT_DIR}`);
 
   } catch (error) {
     console.error('❌ Rendering failed:', error);
     process.exit(1);
   } finally {
-    if (browser) {
-      await browser.close();
-    }
+    if (browser) await browser.close();
   }
 }
 
-// ESM-compatible entry point check
 const isMain = process.argv[1] === fileURLToPath(import.meta.url);
 if (isMain) {
   renderSlides().catch(error => {
