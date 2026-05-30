@@ -1,145 +1,137 @@
 name: Render Slides to 4K Images
 
 on:
-push:
-branches:
-- main
-paths:
-- 'artifacts/rattrap-ppt/src/pages/slides/**'
-- 'scripts/render-slides.js'
-- '.github/workflows/render-slides.yml'
-workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'artifacts/rattrap-ppt/src/pages/slides/**'
+      - 'scripts/render-slides.js'
+      - '.github/workflows/render-slides.yml'
+  workflow_dispatch:
 
 permissions:
-contents: write
+  contents: write
 
 env:
-FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-render-slides:
-runs-on: ubuntu-latest
-timeout-minutes: 30
+  render-slides:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v5
-    with:
-      fetch-depth: 0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-  - name: Setup Node.js 24
-    uses: actions/setup-node@v5
-    with:
-      node-version: '24'
-      cache: 'npm'
-      cache-dependency-path: artifacts/rattrap-ppt/package-lock.json
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: artifacts/rattrap-ppt/package-lock.json
 
-  - name: Install project dependencies
-    working-directory: artifacts/rattrap-ppt
-    run: npm ci
+      - name: Install project dependencies
+        working-directory: artifacts/rattrap-ppt
+        run: npm ci
 
-  - name: Install Puppeteer dependencies
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y \
-        libnss3 \
-        libatk-bridge2.0-0 \
-        libdrm2 \
-        libxkbcommon0 \
-        libgtk-3-0 \
-        libgbm1 \
-        libasound2t64
+      - name: Install Puppeteer dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libdrm2 \
+            libxkbcommon0 \
+            libgtk-3-0 \
+            libgbm1
 
-  - name: Verify Node version
-    run: |
-      node --version
-      npm --version
+      - name: Verify Node version
+        run: |
+          node --version
+          npm --version
 
-  - name: Start dev server
-    working-directory: artifacts/rattrap-ppt
-    run: |
-      npm run dev -- --host 0.0.0.0 > /tmp/dev-server.log 2>&1 &
-      echo $! > /tmp/dev-server.pid
+      - name: Start dev server
+        working-directory: artifacts/rattrap-ppt
+        run: |
+          npm run dev -- --host 0.0.0.0 > /tmp/dev-server.log 2>&1 &
+          echo $! > /tmp/dev-server.pid
 
-  - name: Wait for dev server
-    run: |
-      for i in {1..60}; do
-        if curl -fs http://127.0.0.1:5173 > /dev/null; then
-          echo "✅ Dev server ready"
-          exit 0
-        fi
+      - name: Wait for dev server
+        run: |
+          for i in {1..60}; do
+            if curl -fs http://127.0.0.1:5173 >/dev/null; then
+              echo "Dev server ready"
+              exit 0
+            fi
+            echo "Waiting for server... ($i/60)"
+            sleep 2
+          done
 
-        echo "⏳ Waiting for server... ($i/60)"
-        sleep 2
-      done
+          echo "Server failed to start"
+          cat /tmp/dev-server.log
+          exit 1
 
-      echo "❌ Server failed to start"
-      cat /tmp/dev-server.log
-      exit 1
+      - name: Render slides to 4K images
+        env:
+          SLIDE_URL: http://127.0.0.1:5173
+        run: node scripts/render-slides.js
 
-  - name: Render slides to 4K images
-    env:
-      SLIDE_URL: http://127.0.0.1:5173
-    run: |
-      node scripts/render-slides.js
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ -f /tmp/dev-server.pid ]; then
+            kill $(cat /tmp/dev-server.pid) || true
+          fi
 
-  - name: Stop dev server
-    if: always()
-    run: |
-      if [ -f /tmp/dev-server.pid ]; then
-        kill $(cat /tmp/dev-server.pid) || true
-      fi
+      - name: Verify rendered images
+        run: |
+          if [ ! -d slide-outputs ]; then
+            echo "slide-outputs directory not found"
+            exit 1
+          fi
 
-  - name: Verify rendered images
-    run: |
-      if [ ! -d slide-outputs ]; then
-        echo "❌ slide-outputs directory not found"
-        exit 1
-      fi
+          FILE_COUNT=$(find slide-outputs -type f | wc -l)
 
-      FILE_COUNT=$(find slide-outputs -type f | wc -l)
+          echo "Rendered files: $FILE_COUNT"
 
-      echo "📊 Rendered files: $FILE_COUNT"
+          if [ "$FILE_COUNT" -eq 0 ]; then
+            echo "No rendered images found"
+            exit 1
+          fi
 
-      if [ "$FILE_COUNT" -eq 0 ]; then
-        echo "❌ No rendered images found"
-        exit 1
-      fi
+      - name: Commit rendered images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      ls -lah slide-outputs
+          git add slide-outputs/
 
-  - name: Commit rendered images
-    run: |
-      git config user.name "github-actions[bot]"
-      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then
+            echo "No changes detected"
+          else
+            git commit -m "Auto-render slides"
+            git push
+          fi
 
-      git add slide-outputs/
+      - name: Upload rendered slides
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-slides-4k
+          path: slide-outputs
+          retention-days: 30
 
-      if git diff --cached --quiet; then
-        echo "ℹ️ No changes detected"
-      else
-        git commit -m "🎬 Auto-render slides ($(date -u '+%Y-%m-%d %H:%M UTC'))"
-        git push
-      fi
+      - name: Workflow summary
+        if: always()
+        run: |
+          echo "# Slides Render Report" >> $GITHUB_STEP_SUMMARY
 
-  - name: Upload rendered slides
-    if: success()
-    uses: actions/upload-artifact@v4
-    with:
-      name: rendered-slides-4k
-      path: slide-outputs
-      retention-days: 30
-
-  - name: Workflow summary
-    if: always()
-    run: |
-      echo "# 🎬 Slides Render Report" >> $GITHUB_STEP_SUMMARY
-      echo "" >> $GITHUB_STEP_SUMMARY
-
-      if [ -d slide-outputs ]; then
-        echo "- Resolution: 3840×2160 (4K)" >> $GITHUB_STEP_SUMMARY
-        echo "- Files: $(find slide-outputs -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
-        echo "- Size: $(du -sh slide-outputs | cut -f1)" >> $GITHUB_STEP_SUMMARY
-      else
-        echo "- No output directory found" >> $GITHUB_STEP_SUMMARY
-      fi
+          if [ -d slide-outputs ]; then
+            echo "- Resolution: 3840×2160" >> $GITHUB_STEP_SUMMARY
+            echo "- Files: $(find slide-outputs -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+            echo "- Size: $(du -sh slide-outputs | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          fi
