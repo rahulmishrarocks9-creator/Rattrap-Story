@@ -3,7 +3,6 @@ export default function CharacterSketches() {
     <div className="relative w-screen h-screen overflow-hidden bg-gradient-to-br from-navy via-sapphire to-plum font-body text-ivory px-[6vw] py-[6vh] flex flex-col">
       <div className="absolute -right-[10vw] -top-[14vh] w-[34vw] h-[34vw] rounded-full border border-goldbright/15" />
       <div className="absolute -left-[8vw] -bottom-[18vh] w-[26vw] h-[26vw] rounded-full border border-goldbright/10" />
-
       <div className="relative flex items-end justify-between">
         <div>
           <p className="text-goldbright font-semibold tracking-[0.34em] text-[1.55vw] uppercase">
@@ -15,7 +14,6 @@ export default function CharacterSketches() {
         </div>
         <span className="font-display text-[1.6vw] text-ivory/55">04 figures</span>
       </div>
-
       <div className="relative mt-[3.5vh] grid grid-cols-2 grid-rows-2 gap-[1.8vw] flex-1 min-h-0">
         <div className="rounded-[0.7vw] bg-white/6 border border-white/12 border-t-[3px] border-t-copper p-[2vw] flex flex-col overflow-hidden">
           <div className="flex items-baseline justify-between gap-[1vw]">
@@ -52,7 +50,7 @@ export default function CharacterSketches() {
         <div className="rounded-[0.7vw] bg-white/6 border border-white/12 border-t-[3px] border-t-royal p-[2vw] flex flex-col overflow-hidden">
           <div className="flex items-baseline justify-between gap-[1vw]">
             <h2 className="font-display text-[2.3vw] text-goldbright leading-none">The Ironmaster</h2>
-            <span className="text-[1.5vw] tracking-[0.2em] uppercase text-royal shrink-0">The Host II</span>
+            <span className="text-[1.5vw] tracking-[0.2em] uppercase shrink-0 text-[#2e9e83]">The Host II</span>
           </div>
           <p className="mt-[1.6vh] text-[1.55vw] leading-snug text-ivory/85 [text-wrap:pretty]">
             Owner of the Ramsjö forge. Proud and impulsive, he mistakes the
