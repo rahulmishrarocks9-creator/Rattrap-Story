@@ -1,0 +1,1 @@
+- [Rattrap deck design](rattrap-deck-design.md) — jewel "cabinet" rhythm: alternate deep gem-gradient slides with lighter ones; this user reads all-light decks as "common."

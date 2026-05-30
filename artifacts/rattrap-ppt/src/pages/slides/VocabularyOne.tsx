@@ -13,50 +13,50 @@ export default function VocabularyOne() {
         <span className="font-display text-[1.6vw] text-muted">A – K</span>
       </div>
 
-      <div className="mt-[5vh] grid grid-cols-2 gap-x-[4vw] gap-y-[2.2vh] flex-1 content-start">
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Peddler</span> — a travelling seller</p>
+      <div className="mt-[4.5vh] grid grid-cols-2 gap-x-[2.4vw] gap-y-[1.6vh] flex-1 content-start">
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-sapphire shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-sapphire shrink-0">Peddler</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— a travelling seller</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Rattrap</span> — a device used to catch rats</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-teal shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-teal shrink-0">Rattrap</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— a device to catch rats</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Crofter</span> — one who rents and farms a small plot</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-emerald shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-emerald shrink-0">Crofter</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— one who farms a small rented plot</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Temptation</span> — attraction toward something desirable</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-plum shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-plum shrink-0">Temptation</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— attraction toward something desirable</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Hospitality</span> — friendly treatment of guests</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-copper shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-copper shrink-0">Hospitality</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— friendly treatment of guests</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Compassion</span> — sympathy and concern for others</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-indigo shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-indigo shrink-0">Compassion</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— sympathy and concern for others</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Dignity</span> — self-respect and worth</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-sapphire shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-sapphire shrink-0">Dignity</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— self-respect and worth</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Redemption</span> — improvement after wrongdoing</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-emerald shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-emerald shrink-0">Redemption</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— improvement after wrongdoing</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Solitary</span> — lonely, alone</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-teal shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-teal shrink-0">Solitary</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— lonely, alone</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Vagabond</span> — a wanderer without a home</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-copper shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-copper shrink-0">Vagabond</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— a wanderer without a home</span>
         </div>
-        <div className="flex gap-[1vw] border-b border-teal/15 pb-[1.6vh]">
-          <span className="text-gold text-[1.65vw] leading-none mt-[0.4vh]">◆</span>
-          <p className="text-[1.7vw] leading-snug"><span className="font-display text-[1.7vw] text-sapphire">Enticed</span> — attracted or tempted</p>
+        <div className="rounded-[0.5vw] bg-white border-l-[4px] border-plum shadow-[0_2px_8px_rgba(20,32,46,0.06)] px-[1.5vw] py-[1.2vh] flex items-baseline gap-[0.7vw]">
+          <span className="font-display text-[1.75vw] text-plum shrink-0">Enticed</span>
+          <span className="text-[1.5vw] leading-snug text-ink/70">— attracted or tempted</span>
         </div>
       </div>
     </div>
