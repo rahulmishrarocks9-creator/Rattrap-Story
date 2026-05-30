@@ -1,0 +1,74 @@
+name: Render Slides to 4K Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'artifacts/rattrap-ppt/src/pages/slides/**'
+      - 'scripts/render-slides.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-slides:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: artifacts/rattrap-ppt
+        run: npm install
+
+      - name: Install Puppeteer
+        run: npm install --save-dev puppeteer
+
+      - name: Start dev server
+        working-directory: artifacts/rattrap-ppt
+        run: |
+          npm run dev > /tmp/dev-server.log 2>&1 &
+          echo $! > /tmp/dev-server.pid
+          sleep 10
+
+      - name: Wait for dev server
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:5173 > /dev/null; then
+              echo "✅ Dev server is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: Render slides to 4K images
+        run: node scripts/render-slides.js
+
+      - name: Stop dev server
+        if: always()
+        run: kill $(cat /tmp/dev-server.pid) 2>/dev/null || true
+
+      - name: Commit rendered images
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add slide-outputs/
+          git commit -m "🎬 Auto-render slides to 4K - $(date +%Y-%m-%d)" || true
+          git push || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-slides-4k
+          path: slide-outputs/
+          retention-days: 30
