@@ -32,17 +32,13 @@ jobs:
           node --version
           npm --version
 
-      - name: Install dependencies
+      - name: Install app dependencies
         working-directory: artifacts/rattrap-ppt
         run: npm install
 
-      - name: Install missing Tailwind Vite plugin
-        working-directory: artifacts/rattrap-ppt
-        run: npm install @tailwindcss/vite --save-dev
-
-      - name: Install puppeteer for render script
+      - name: Install script dependencies
         working-directory: scripts
-        run: npm install puppeteer
+        run: npm install
 
       - name: Install browser dependencies
         run: |
@@ -55,8 +51,9 @@ jobs:
             libgtk-3-0 \
             libgbm1
 
-      - name: Install Playwright browser
-        run: npx playwright install chromium --with-deps
+      - name: Install Puppeteer browser
+        working-directory: scripts
+        run: npx puppeteer browsers install chrome
 
       - name: Start Vite server
         working-directory: artifacts/rattrap-ppt
