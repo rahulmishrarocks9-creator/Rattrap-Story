@@ -143,4 +143,3 @@ steps:
       else
         echo "- No output directory found" >> $GITHUB_STEP_SUMMARY
       fi
-```
